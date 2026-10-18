@@ -17,4 +17,5 @@ def distinct_random_numbers(min, max, size):
             res.append(num)
             count = count + 1
     return res
+
 print(distinct_random_numbers(1, 49, 7))
