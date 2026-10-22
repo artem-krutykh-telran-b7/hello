@@ -1,20 +1,9 @@
 def int_reverse(num):
-    res = str(num % 10)
-    num = num // 10
-    while num != 0:
-        res = res + str(num % 10)
-        num = num // 10
-    return res
+    return str(num)[::-1]
 
 def create_palindromic_list(start, stop):
-    res = []
-    step = 1
-    if start > stop:
-        step = -1
-    for num in range(start, stop + step, step):
-        if int_reverse(num) ==str(num):
-            res.append(num)
-    return res
+    step = 1 if start <= stop else -1
+    return [num for num in range(start, stop + step, step) if str(num) == int_reverse(num)]
 
 print(create_palindromic_list(20,40))
 
