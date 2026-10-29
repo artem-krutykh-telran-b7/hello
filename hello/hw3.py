@@ -17,3 +17,7 @@ def min_even(numbers):
         if x < res:
             res = x
     return res
+
+def count(numbers, num):
+    return len([x for x in numbers if x == num])
+
