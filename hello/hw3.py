@@ -21,3 +21,10 @@ def min_even(numbers):
 def count(numbers, num):
     return len([x for x in numbers if x == num])
 
+print(indexOf([10, 20, 30, 20, -1], 20))       # 1
+print(indexOf([10, 20, 30, 20, -1], 23))       # -1
+print(lastIndexOf([10, 20, 30, 20, -1], 20))   # 3
+print(lastIndexOf([10, 20, 30, 20, -1], 23))   # -1
+print(min_even([-10001, 10, 20, 8, -7]))       # 8
+print(count([10, 20, 30, 20, -1], 20))         # 2
+print(count([10, 20, 30, 20, -1], 23))         # 0
