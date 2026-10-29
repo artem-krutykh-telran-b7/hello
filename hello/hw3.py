@@ -9,3 +9,11 @@ def lastIndexOf(numbers, num):
     while i >= 0 and numbers[i] != num:
         i -= 1
     return i
+
+def min_even(numbers):
+    evens = [x for x in numbers if x % 2 == 0]
+    res = evens[0]
+    for x in evens:
+        if x < res:
+            res = x
+    return res
