@@ -6,6 +6,7 @@ def bubble_sorted(
 ) -> list[object]:
     result: list[object] = list(items)
     for end in range(len(result) - 1, 0, -1):
+        swapped = False
         for index in range(end):
             left = result[index]
             right = result[index + 1]
@@ -14,14 +15,16 @@ def bubble_sorted(
                 right = key(right)
             if right < left:
                 result[index], result[index + 1] = result[index + 1], result[index]
+                swapped = True
+        if not swapped:
+            break
     return result
 
 def even_asc_odd_desc(numbers: list[int]) -> list[int]:
-    even_numbers = [n for n in numbers if n % 2 == 0]
-    odd_numbers = [n for n in numbers if n % 2 != 0]
-    even_sorted = bubble_sorted(even_numbers)
-    odd_sorted = bubble_sorted(odd_numbers, lambda n: -n)
-    return even_sorted + odd_sorted
+    return sorted(
+        numbers,
+        key=lambda number: (number % 2, number if number % 2 == 0 else -number),
+    )
 
 def merge(
     part1: Sequence[object],
