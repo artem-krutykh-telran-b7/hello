@@ -1,5 +1,6 @@
 from typing import Callable, Sequence
 
+
 def bubble_sorted(
     items: Sequence[object],
     key: Callable[[object], object] | None = None,
@@ -20,11 +21,13 @@ def bubble_sorted(
             break
     return result
 
+
 def even_asc_odd_desc(numbers: list[int]) -> list[int]:
     return sorted(
         numbers,
         key=lambda number: (number % 2, number if number % 2 == 0 else -number),
     )
+
 
 def merge(
     part1: Sequence[object],
