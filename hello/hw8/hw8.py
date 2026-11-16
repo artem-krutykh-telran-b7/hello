@@ -1,24 +1,32 @@
 from typing import Callable, Sequence
 
 
+def __move_max_to_end(
+    items: list[object],
+    end: int,
+    key: Callable[[object], object] | None = None,
+) -> int:
+    swaps = 0
+    for index in range(end):
+        left = items[index]
+        right = items[index + 1]
+        if key is not None:
+            left = key(left)
+            right = key(right)
+        if right < left:
+            items[index], items[index + 1] = items[index + 1], items[index]
+            swaps += 1
+    return swaps
+
+
 def bubble_sorted(
     items: Sequence[object],
     key: Callable[[object], object] | None = None,
 ) -> list[object]:
     result: list[object] = list(items)
-    for end in range(len(result) - 1, 0, -1):
-        swapped = False
-        for index in range(end):
-            left = result[index]
-            right = result[index + 1]
-            if key is not None:
-                left = key(left)
-                right = key(right)
-            if right < left:
-                result[index], result[index + 1] = result[index + 1], result[index]
-                swapped = True
-        if not swapped:
-            break
+    end = len(result) - 1
+    while end > 0 and __move_max_to_end(result, end, key) > 0:
+        end -= 1
     return result
 
 
