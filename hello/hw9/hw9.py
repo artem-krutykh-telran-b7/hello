@@ -1,6 +1,15 @@
 from typing import Callable
 
 
+def __move_item_to_index[T](items: list[T], source: int, destination: int) -> None:
+    item = items[source]
+    index = source
+    while index > destination:
+        items[index] = items[index - 1]
+        index -= 1
+    items[destination] = item
+
+
 def merge_in_place[T](
     items: list[T],
     start: int,
@@ -8,11 +17,6 @@ def merge_in_place[T](
     size: int,
     key: Callable[[T], T] | None = None,
 ) -> None:
-    """Merge two sorted parts in place using O(1) extra space.
-
-    The worst-case running time is O(N^2), since elements may need to be
-    shifted one position at a time.
-    """
     first = start
     second = start + len1
     end = start + size
@@ -24,12 +28,7 @@ def merge_in_place[T](
         right_key = key(right) if key is not None else right
 
         if right_key < left_key:
-            item = items[second]
-            index = second
-            while index > first:
-                items[index] = items[index - 1]
-                index -= 1
-            items[first] = item
+            __move_item_to_index(items, second, first)
             first += 1
             second += 1
         else:
