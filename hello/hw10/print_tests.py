@@ -5,11 +5,16 @@ import unittest_print
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 unittest_print.print_test(
     "all range",
-    [3, 4, 5, 6, 7, 8, 9],
+    [3, 4, 5, 6, 7, 8],
     hw10.get_all_range(numbers, range(3, 10)),
 )
 unittest_print.print_test("empty range", [], hw10.get_all_range(numbers, range(5, 5)))
 unittest_print.print_test("missing allowed", numbers, hw10.get_all_range(numbers))
+unittest_print.print_test(
+    "missing allowed returns original list",
+    True,
+    hw10.get_all_range(numbers) is numbers,
+)
 
 unittest_print.print_test(
     "not in range",
@@ -22,13 +27,13 @@ unittest_print.print_test(
     hw10.get_all_not_in_range(numbers, range(5, 5)),
 )
 unittest_print.print_test(
-    "stepped range",
-    [3, 5, 7, 9],
+    "range between minimum and maximum",
+    [3, 4, 5, 6, 7, 8],
     hw10.get_all_range(numbers, range(3, 10, 2)),
 )
 unittest_print.print_test(
-    "descending range",
-    [4, 6, 8],
+    "descending range between minimum and maximum",
+    [4, 5, 6, 7],
     hw10.get_all_range(numbers, range(8, 2, -2)),
 )
 unittest_print.print_test(

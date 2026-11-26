@@ -1,46 +1,27 @@
-from bisect import bisect_left, bisect_right
+from bisect import bisect_left
 from math import sqrt
-from typing import Callable, Sequence
-
-
-def __get_range_bounds(values: range) -> tuple[int, int]:
-    if values.step > 0:
-        lower = values[0]
-        upper = values[-1]
-    else:
-        lower = values[-1]
-        upper = values[0]
-    return lower, upper
+from typing import Callable, Sequence, cast
 
 
 def get_all_range(numbers: Sequence[int], allowed: range | None = None) -> list[int]:
-    result: list[int] = list(numbers)
+    result: list[int] = cast(list[int], numbers)
 
     if allowed is not None:
         result = []
         if len(allowed) > 0:
-            lower, upper = __get_range_bounds(allowed)
+            lower = allowed[0]
+            upper = allowed[-1]
+            if lower > upper:
+                lower, upper = upper, lower
             start = bisect_left(numbers, lower)
-            end = bisect_right(numbers, upper)
-            result = [number for number in numbers[start:end] if number in allowed]
+            end = bisect_left(numbers, upper)
+            result = list(numbers[start:end])
 
     return result
 
 
 def get_all_not_in_range(numbers: Sequence[int], disallowed: range) -> list[int]:
-    result: list[int] = list(numbers)
-
-    if len(disallowed) > 0:
-        lower, upper = __get_range_bounds(disallowed)
-        start = bisect_left(numbers, lower)
-        end = bisect_right(numbers, upper)
-        result = list(numbers[:start])
-        for number in numbers[start:end]:
-            if number not in disallowed:
-                result.append(number)
-        result.extend(numbers[end:])
-
-    return result
+    return [number for number in numbers if number not in disallowed]
 
 
 def __move_max_to_end[T, K](
